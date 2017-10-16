@@ -23,10 +23,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedOptions;
+import javax.annotation.processing.*;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
@@ -41,10 +39,15 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SupportedAnnotationTypes({ "ch.rasc.extclassgenerator.Model" })
-@SupportedOptions({ "outputFormat", "debug", "includeValidation" })
+@SupportedOptions({ "outputFormat", "debug", "includeValidation","createBaseAndSubclass","useSingleQuotes" ,"surroundApiWithQuotes","lineEnding"})
 public class ModelAnnotationProcessor extends AbstractProcessor {
 
-	private static final boolean ALLOW_OTHER_PROCESSORS_TO_CLAIM_ANNOTATIONS = false;
+    @Override
+    public SourceVersion getSupportedSourceVersion() {
+        return SourceVersion.latestSupported();
+    }
+
+    private static final boolean ALLOW_OTHER_PROCESSORS_TO_CLAIM_ANNOTATIONS = false;
 
 	private static final String OPTION_OUTPUTFORMAT = "outputFormat";
 
